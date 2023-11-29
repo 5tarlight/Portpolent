@@ -1,7 +1,10 @@
 package io.yeahx4.portpolent.entity;
 
+import io.yeahx4.portpolent.entity.consts.AccountType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,4 +31,8 @@ public class User extends TimeEntity {
 
     @Column(nullable = false, length = 255)
     private String password;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 }
