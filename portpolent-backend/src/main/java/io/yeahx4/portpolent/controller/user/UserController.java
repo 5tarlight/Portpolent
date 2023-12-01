@@ -24,5 +24,6 @@ public class UserController {
     @PostMapping("/signup")
     public void signUp(@RequestBody SignUpDto dto) {
         boolean availableToCreate = this.userService.availableToCreate(dto.handle(), dto.email());
+
     }
 }
