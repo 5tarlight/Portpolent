@@ -1,5 +1,6 @@
 package io.yeahx4.portpolent.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.yeahx4.portpolent.entity.consts.AccountType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,7 @@ public class User extends TimeEntity {
     @Column(nullable = false, length = 10)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false, length = 255)
     private String password;
 
