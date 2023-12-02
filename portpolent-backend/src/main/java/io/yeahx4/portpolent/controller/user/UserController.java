@@ -31,6 +31,12 @@ public class UserController {
         boolean availableToCreate = this.userService.availableToCreate(dto.handle(), dto.email());
 
         if (!availableToCreate) {
+            logger.info(
+                    "Sign up request failed due to duplicated email or password ("
+                    + dto.email() + ", "
+                    + dto.handle() + ")"
+            );
+
             return new ResponseEntity<>(
                     RestResponse.fail("Duplicated email or handle."),
                     HttpStatus.BAD_REQUEST
@@ -44,6 +50,8 @@ public class UserController {
                 dto.password(),
                 AccountType.OWN
         );
+
+        logger.info("New user signed up. (" + dto.handle() + ")");
 
         return new ResponseEntity<>(
                 RestResponse.success(user),
