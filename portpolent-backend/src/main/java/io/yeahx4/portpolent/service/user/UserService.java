@@ -40,4 +40,16 @@ public class UserService {
         User user = new User(-1, email, handle, username, encrypted, type);
         return this.userRepository.save(user);
     }
+
+    public Optional<User> getUserById(int id) {
+        return this.userRepository.findById(id);
+    }
+
+    public Optional<User> getUserByHandle(String handle) {
+        return this.userRepository.findByHandle(handle);
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
 }
