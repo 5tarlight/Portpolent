@@ -5,6 +5,7 @@ import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.entity.consts.AccountType;
 import io.yeahx4.portpolent.service.user.UserService;
 import io.yeahx4.portpolent.util.RestResponse;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<RestResponse<User>> signUp(@RequestBody SignUpDto dto) {
+    public ResponseEntity<RestResponse<User>> signUp(@RequestBody @Valid SignUpDto dto) {
         boolean availableToCreate = this.userService.availableToCreate(dto.handle(), dto.email());
 
         if (!availableToCreate) {
