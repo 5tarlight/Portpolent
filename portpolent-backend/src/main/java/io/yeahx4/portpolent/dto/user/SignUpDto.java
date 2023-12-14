@@ -21,6 +21,8 @@ public record SignUpDto(
         @NotBlank(message = "Username Required")
         String username,
 
+        // Least 8 characters, one lower letter, one upper letter, one special letter, one number
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
         @NotBlank(message = "Password Required")
         String password
 ) {
