@@ -7,12 +7,12 @@ import jakarta.validation.constraints.Size;
 
 public record SignUpDto(
         @NotBlank(message = "Email Required")
-        @Email
+        @Email(message = "Email pattern mismatch")
         @Size(max = 100)
         String email,
 
         @Size(min = 4, max = 20)
-        @Pattern(regexp = "[a-z0-9]{4,20}")
+        @Pattern(regexp = "[a-z0-9]{4,20}", message = "Handle pattern mismatched")
         @NotBlank(message = "Handle Required")
         String handle,
 
@@ -22,7 +22,10 @@ public record SignUpDto(
         String username,
 
         // Least 8 characters, one lower letter, one upper letter, one special letter, one number
-        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+        @Pattern(
+                regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+                message = "Password pattern mismatched"
+        )
         @NotBlank(message = "Password Required")
         String password
 ) {

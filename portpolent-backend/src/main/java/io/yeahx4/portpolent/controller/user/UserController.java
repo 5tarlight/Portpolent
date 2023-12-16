@@ -1,5 +1,6 @@
 package io.yeahx4.portpolent.controller.user;
 
+import io.yeahx4.portpolent.dto.user.SignInResultDto;
 import io.yeahx4.portpolent.dto.user.SignUpDto;
 import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.entity.consts.AccountType;
@@ -99,6 +100,19 @@ public class UserController {
                     RestResponse.success(user.get()),
                     HttpStatus.OK
             );
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<RestResponse<User>> login(@RequestBody SignUpDto body) {
+        SignInResultDto result = this.userService.login(body.email(), body.password());
+
+        if (!result.ok()) {
+            this.logger.warn(result.message());
+            return new ResponseEntity<>(RestResponse.fail("Invalid email or password."), HttpStatus.BAD_REQUEST);
+        } else {
+            this.logger.info("Successful login by user " + result.user().getId());
+            return new ResponseEntity<>(RestResponse.success(result.user()), HttpStatus.OK);
         }
     }
 }
