@@ -6,6 +6,8 @@ import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.entity.consts.AccountType;
 import io.yeahx4.portpolent.service.user.UserService;
 import io.yeahx4.portpolent.util.RestResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.Optional;
 
@@ -114,5 +117,44 @@ public class UserController {
             this.logger.info("Successful login by user " + result.user().getId());
             return new ResponseEntity<>(RestResponse.success(result.user()), HttpStatus.OK);
         }
+    }
+
+    // Obsoleted!
+    @GetMapping("/whoami_old")
+    public ResponseEntity<RestResponse<User>> _whoAmI(HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+
+        if (session == null) {
+            return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
+        } else {
+            Integer userId = (Integer) session.getAttribute("user-id");
+
+            if (userId == null)
+                return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
+            else {
+                Optional<User> user = this.userService.getUserById(userId);
+                return user
+                    .map(
+                        value -> new ResponseEntity<>(RestResponse.success(value), HttpStatus.OK)
+                    ).orElseGet(
+                        () -> new ResponseEntity<>(
+                            RestResponse.fail("Invalid user identification"),
+                            HttpStatus.BAD_REQUEST
+                        )
+                    );
+            }
+        }
+    }
+
+    @GetMapping("/whoami")
+    public ResponseEntity<RestResponse<User>> whoAmI(
+            @SessionAttribute(name = "user-id", required = true) Integer userId
+    ) {
+        Optional<User> user = this.userService.getUserById(userId);
+
+        if (user.isEmpty())
+            return new ResponseEntity<>(RestResponse.error("Invalid user id"), HttpStatus.BAD_REQUEST);
+        else
+            return new ResponseEntity<>(RestResponse.success(user.get()), HttpStatus.OK);
     }
 }
