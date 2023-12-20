@@ -4,6 +4,7 @@ import io.yeahx4.portpolent.dto.user.SignInResultDto;
 import io.yeahx4.portpolent.dto.user.SignUpDto;
 import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.entity.consts.AccountType;
+import io.yeahx4.portpolent.entity.consts.SessionName;
 import io.yeahx4.portpolent.service.user.UserService;
 import io.yeahx4.portpolent.util.RestResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -127,7 +128,7 @@ public class UserController {
         if (session == null) {
             return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
         } else {
-            Integer userId = (Integer) session.getAttribute("user-id");
+            Integer userId = (Integer) session.getAttribute(SessionName.LOGIN_USER_ID);
 
             if (userId == null)
                 return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
@@ -148,7 +149,7 @@ public class UserController {
 
     @GetMapping("/whoami")
     public ResponseEntity<RestResponse<User>> whoAmI(
-            @SessionAttribute(name = "user-id", required = true) Integer userId
+            @SessionAttribute(name = SessionName.LOGIN_USER_ID, required = true) Integer userId
     ) {
         Optional<User> user = this.userService.getUserById(userId);
 
