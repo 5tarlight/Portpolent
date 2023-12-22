@@ -108,13 +108,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<RestResponse<User>> login(@RequestBody SignUpDto body) {
+    public ResponseEntity<RestResponse<User>> login(
+            HttpServletRequest request,
+            @RequestBody SignUpDto body
+    ) {
         SignInResultDto result = this.userService.login(body.email(), body.password());
 
         if (!result.ok()) {
             this.logger.warn(result.message());
             return new ResponseEntity<>(RestResponse.fail("Invalid email or password."), HttpStatus.BAD_REQUEST);
         } else {
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionName.LOGIN_USER_ID, result.user().getId());
+
             this.logger.info("Successful login by user " + result.user().getId());
             return new ResponseEntity<>(RestResponse.success(result.user()), HttpStatus.OK);
         }
