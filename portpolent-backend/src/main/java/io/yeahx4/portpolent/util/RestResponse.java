@@ -18,11 +18,11 @@ public final class RestResponse<T> {
         return new RestResponse<>(ResponseStatus.SUCCESS, data, null);
     }
 
-    public static <T> RestResponse<T> error(T error, String message) {
-        return new RestResponse<>(ResponseStatus.ERROR, error, message);
+    public static <T> RestResponse<T> error(String message) {
+        return new RestResponse<>(ResponseStatus.ERROR, null, message);
     }
 
     public static <T> RestResponse<T> fail(String message) {
-        return new RestResponse<>(ResponseStatus.ERROR, null, message);
+        return new RestResponse<>(ResponseStatus.FAIL, null, message);
     }
 }

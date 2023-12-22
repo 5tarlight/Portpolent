@@ -1,4 +1,4 @@
-package io.yeahx4.portpolent;
+package io.yeahx4.portpolent.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

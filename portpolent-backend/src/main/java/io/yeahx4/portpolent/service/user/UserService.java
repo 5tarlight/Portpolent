@@ -1,5 +1,6 @@
 package io.yeahx4.portpolent.service.user;
 
+import io.yeahx4.portpolent.dto.user.SignInResultDto;
 import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.entity.consts.AccountType;
 import io.yeahx4.portpolent.repository.UserRepository;
@@ -51,5 +52,18 @@ public class UserService {
 
     public Optional<User> getUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
+    }
+
+    public SignInResultDto login(String email, String password) {
+        Optional<User> emailUser = this.getUserByEmail(email);
+        if (emailUser.isEmpty())
+            return new SignInResultDto(false, null, "Cannot find user with email " + email);
+
+        User user = emailUser.get();
+        boolean passwordMatch = this.doPasswordMatch(password, user.getPassword());
+        if (!passwordMatch)
+            return new SignInResultDto(false, null, "Password does not match.");
+
+        return new SignInResultDto(true, user, null);
     }
 }
