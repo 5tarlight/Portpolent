@@ -10,11 +10,37 @@ export default function Home() {
   return (
     <>
       <div
-        className="w-full h-dvh bg-white flex justify-center"
+        className="w-full h-fit bg-white flex justify-center"
         style={{ background: gradient }}
       >
         <Content>
-          <h1>Hello World</h1>
+          <>
+            <div className="md:h-[10rem] h-[5rem]" />
+            <div className="w-full flex flex-col text-center items-center content-center">
+              <h1 className="font-extrabold sm:text-[3rem] text-[2rem] mb-8">
+                Show Yourself
+              </h1>
+              <div className="md:w-[50rem] sm:w-[30rem] w-[25rem] self-center text-[1.1rem]">
+                Portpolent enables you to express and explain about <b>you</b>.
+                With portpolent,you can make a beautiful portfolio without any
+                codes, hardships and etc. Sign up for free and start your{" "}
+                <b>story</b>.
+              </div>
+            </div>
+            <div className="flex justify-center my-[6rem]">
+              <button className="bg-blue-950 px-6 py-3 text-white rounded-lg mr-8">
+                Get Started
+              </button>
+              <button
+                className={
+                  "px-6 py-3 rounded-lg border-gray-400 border-2 bg-white " +
+                  "backdrop-blur-lg bg-opacity-80"
+                }
+              >
+                Learn more
+              </button>
+            </div>
+          </>
         </Content>
       </div>
     </>
