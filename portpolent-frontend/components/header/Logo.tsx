@@ -11,10 +11,6 @@ export default function Logo() {
             "bg-blue-950 text-white w-12 h-12 flex justify-center items-center" +
             " rounded-lg text-2xl font-bold select-none hover:cursor-pointer mr-2"
           }
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-          }}
         >
           P
         </div>
