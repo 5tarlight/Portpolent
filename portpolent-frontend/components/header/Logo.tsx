@@ -18,7 +18,7 @@ export default function Logo() {
         >
           P
         </div>
-        <div className="font-bold text-xl hover:cursor-pointer md:block lg:block sm:hidden">
+        <div className="font-bold text-xl hover:cursor-pointer md:block hidden">
           Portpolent
         </div>
       </div>

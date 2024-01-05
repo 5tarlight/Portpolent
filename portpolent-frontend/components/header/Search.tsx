@@ -1,6 +1,6 @@
 export default function Search() {
   return (
-    <div className="flex lg:w-96 h-9 md:w-52 sm:w-52">
+    <div className="lg:w-96 h-9 md:w-52 sm:flex hidden">
       <input
         placeholder="다른 포트폴리오 찾기"
         className="w-full pl-3 bg-gray-100 outline-none rounded-l-lg"

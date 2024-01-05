@@ -5,5 +5,7 @@ export default function Content({
 }: {
   children: ReactElement | number | string;
 }) {
-  return <div className="max-w-[1280px] w-full">{children}</div>;
+  return (
+    <div className="max-w-[1280px] w-full justify-self-center">{children}</div>
+  );
 }
