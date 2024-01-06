@@ -20,7 +20,7 @@ export default function Home() {
               <h1 className="font-extrabold sm:text-[3rem] text-[2rem] mb-8">
                 Show Yourself
               </h1>
-              <div className="md:w-[50rem] sm:w-[30rem] w-[25rem] self-center text-[1.1rem]">
+              <div className="md:w-[50rem] sm:w-[30rem] w-[20rem] self-center text-[1.1rem]">
                 Portpolent enables you to express and explain about <b>you</b>.
                 With portpolent,you can make a beautiful portfolio without any
                 codes, hardships and etc. Sign up for free and start your{" "}
@@ -43,6 +43,8 @@ export default function Home() {
           </>
         </Content>
       </div>
+
+      <div className=""></div>
     </>
   );
 }
