@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 
 export default function Content({
   children,
   className = "",
 }: {
-  children: ReactElement | number | string;
+  children?: ReactNode;
   className?: string;
 }) {
   return (
