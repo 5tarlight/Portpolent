@@ -8,7 +8,11 @@ export default function Content({
   className?: string;
 }) {
   return (
-    <div className={"max-w-[1280px] w-full justify-self-center " + className}>
+    <div
+      className={
+        "max-w-[1320px] px-[20px] w-full justify-self-center " + className
+      }
+    >
       {children}
     </div>
   );

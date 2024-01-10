@@ -1,7 +1,13 @@
 import { ReactNode } from "react";
 import Content from "./Content";
 
-const DoubleContent = ({ children }: { children: [ReactNode, ReactNode] }) => {
+const DoubleContent = ({
+  children,
+  reversed = false,
+}: {
+  children: [ReactNode, ReactNode];
+  reversed?: boolean;
+}) => {
   return (
     <Content>
       <div className="flex w-full justify-between">

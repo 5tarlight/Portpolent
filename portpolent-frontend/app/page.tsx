@@ -69,7 +69,7 @@ export default function Home() {
             </div>
           </DoubleContent>
           <Gap height="h-32" />
-          <DoubleContent>
+          <DoubleContent reversed>
             <div>
               <TempBox height="h-64" />
             </div>
@@ -106,7 +106,6 @@ export default function Home() {
           </DoubleContent>
         </Content>
       </div>
-      <div className="temp-footer h-[40rem]" />
     </>
   );
 }
