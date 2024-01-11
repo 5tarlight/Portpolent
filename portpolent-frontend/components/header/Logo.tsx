@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Logo() {
   return (
     <Link href={"/"}>
-      <div className="flex h-12 items-center">
+      <div className="flex h-12 items-center select-none">
         <div
           className={
             "bg-blue-950 text-white w-12 h-12 flex justify-center items-center" +
