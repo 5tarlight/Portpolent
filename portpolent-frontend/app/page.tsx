@@ -50,7 +50,7 @@ export default function Home() {
           <h1 className="self-center text-2xl font-bold">
             Portpolent와 함께라면
           </h1>
-          <div className="h-8" />
+          <div className="h-16" />
           <DoubleContent>
             <div>
               Lorem Ipsum is simply dummy text of the printing and typesetting
