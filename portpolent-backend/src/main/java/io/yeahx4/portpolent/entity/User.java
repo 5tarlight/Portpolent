@@ -9,16 +9,19 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends TimeEntity {
     @Id
     @Column(nullable = false)
@@ -40,5 +43,15 @@ public class User extends TimeEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private AccountType accountType;
+    @Builder.Default
+    private AccountType accountType = AccountType.OWN;
+
+    @Builder
+    public User(String email, String handle, String username, String password, AccountType type) {
+        this.email = email;
+        this.handle = handle;
+        this.username = username;
+        this.password = password;
+        this.accountType = type;
+    }
 }

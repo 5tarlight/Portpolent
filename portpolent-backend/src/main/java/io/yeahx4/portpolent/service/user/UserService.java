@@ -38,7 +38,12 @@ public class UserService {
 
     public User saveUser(String email, String handle, String username, String password, AccountType type) {
         String encrypted = this.encryptPassword(password);
-        User user = new User(-1, email, handle, username, encrypted, type);
+        User user = User.builder()
+                .email(email)
+                .handle(handle)
+                .username(username)
+                .password(encrypted)
+                .build();
         return this.userRepository.save(user);
     }
 
