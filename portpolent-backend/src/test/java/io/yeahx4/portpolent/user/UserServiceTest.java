@@ -15,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ContextConfiguration(classes = PortpolentBackendApplication.class)
 @Transactional
 public class UserServiceTest {
     @Autowired

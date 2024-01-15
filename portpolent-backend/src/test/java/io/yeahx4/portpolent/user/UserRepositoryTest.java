@@ -9,32 +9,56 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 @SpringBootTest
 @Transactional
 public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
-    private User getUser1() {
-        return User.builder()
-                .email("test1@mail.com")
-                .handle("handle")
-                .username("User1")
-                .password("password")
-                .build();
-    }
-
     @Test
     @DisplayName("Save user entity")
     void testSaveUser() {
         // given
-        User user = this.getUser1();
+        User user = UserTestUtil.getUser1();
+
         // when
-        User result = this.userRepository.save(user);
+        User result = userRepository.save(user);
+
         // then
-        Assertions.assertEquals(result.getEmail(), user.getEmail());
-        Assertions.assertEquals(result.getHandle(), user.getHandle());
-        Assertions.assertEquals(result.getUsername(), user.getUsername());
-        Assertions.assertEquals(result.getPassword(), user.getPassword());
+        Assertions.assertTrue(UserTestUtil.isSameIncludingPassword(user, result));
+    }
+
+    @Test
+    @DisplayName("Find user with handle")
+    void findWithHandle() {
+        // given
+        User user = UserTestUtil.getUser1();
+        userRepository.save(user);
+
+        // when
+        Optional<User> result = userRepository.findByHandle(user.getHandle());
+
+        // then
+        Assertions.assertTrue(result.isPresent());
+        User resultUser = result.get();
+        Assertions.assertTrue(UserTestUtil.isSameIncludingPassword(user, resultUser));
+    }
+
+    @Test
+    @DisplayName("Find user with email")
+    void findWithEmail() {
+        // given
+        User user = UserTestUtil.getUser1();
+        userRepository.save(user);
+
+        // when
+        Optional<User> result = userRepository.findByEmail(user.getEmail());
+
+        // then
+        Assertions.assertTrue(result.isPresent());
+        User resultUser = result.get();
+        Assertions.assertTrue(UserTestUtil.isSameIncludingPassword(user, resultUser));
     }
 }
