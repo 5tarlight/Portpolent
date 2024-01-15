@@ -43,6 +43,7 @@ public class UserService {
                 .handle(handle)
                 .username(username)
                 .password(encrypted)
+                .accountType(type)
                 .build();
         return this.userRepository.save(user);
     }
