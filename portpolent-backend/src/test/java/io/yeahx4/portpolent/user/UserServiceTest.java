@@ -14,6 +14,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
@@ -42,7 +48,7 @@ public class UserServiceTest {
 
         // then
         Assertions.assertTrue(UserTestUtil.isSameExceptForPassword(user, result));
-        Assertions.assertNotEquals(result.getPassword(), user.getPassword()); // Encrypted!
+        assertNotEquals(result.getPassword(), user.getPassword()); // Encrypted!
     }
 
     @Test
@@ -56,7 +62,7 @@ public class UserServiceTest {
         boolean avail = userService.availableToCreate(user.getHandle(), "other-email@example.com");
 
         // then
-        Assertions.assertFalse(avail);
+        assertFalse(avail);
     }
 
     @Test
@@ -70,7 +76,7 @@ public class UserServiceTest {
         boolean avail = userService.availableToCreate("otherhandle", user.getEmail());
 
         // then
-        Assertions.assertFalse(avail);
+        assertFalse(avail);
     }
 
     @Test
@@ -84,8 +90,8 @@ public class UserServiceTest {
         boolean doPasswordMatch = userService.doPasswordMatch(user.getPassword(), result.getPassword());
 
         // then
-        Assertions.assertNotEquals(user.getPassword(), result.getPassword());
-        Assertions.assertTrue(doPasswordMatch);
+        assertNotEquals(user.getPassword(), result.getPassword());
+        assertTrue(doPasswordMatch);
     }
 
     @Test
@@ -99,8 +105,8 @@ public class UserServiceTest {
         Optional<User> result = userService.getUserByHandle(user.getHandle());
 
         // then
-        Assertions.assertTrue(result.isPresent());
-        Assertions.assertTrue(UserTestUtil.isSameExceptForPassword(user, result.get()));
+        assertTrue(result.isPresent());
+        assertTrue(UserTestUtil.isSameExceptForPassword(user, result.get()));
     }
 
     @Test
@@ -114,8 +120,8 @@ public class UserServiceTest {
         Optional<User> result = userService.getUserById(id);
 
         // then
-        Assertions.assertTrue(result.isPresent());
-        Assertions.assertTrue(UserTestUtil.isSameExceptForPassword(user, result.get()));
+        assertTrue(result.isPresent());
+        assertTrue(UserTestUtil.isSameExceptForPassword(user, result.get()));
     }
 
     @Test
@@ -129,8 +135,8 @@ public class UserServiceTest {
         Optional<User> result = userService.getUserByEmail(user.getEmail());
 
         // then
-        Assertions.assertTrue(result.isPresent());
-        Assertions.assertTrue(UserTestUtil.isSameExceptForPassword(user, result.get()));
+        assertTrue(result.isPresent());
+        assertTrue(UserTestUtil.isSameExceptForPassword(user, result.get()));
     }
 
     @Test
@@ -144,9 +150,9 @@ public class UserServiceTest {
         SignInResultDto dto = userService.login(user.getEmail(), user.getPassword());
 
         // then
-        Assertions.assertTrue(dto.ok());
-        Assertions.assertTrue(UserTestUtil.isSameExceptForPassword(user, dto.user()));
-        Assertions.assertNull(dto.message());
+        assertTrue(dto.ok());
+        assertTrue(UserTestUtil.isSameExceptForPassword(user, dto.user()));
+        assertNull(dto.message());
     }
 
     @Test
@@ -160,9 +166,9 @@ public class UserServiceTest {
         SignInResultDto dto = userService.login("invalid@example.com", user.getPassword());
 
         // then
-        Assertions.assertFalse(dto.ok());
-        Assertions.assertNull(dto.user());
-        Assertions.assertNotNull(dto.message());
+        assertFalse(dto.ok());
+        assertNull(dto.user());
+        assertNotNull(dto.message());
     }
 
     @Test
@@ -176,8 +182,8 @@ public class UserServiceTest {
         SignInResultDto dto = userService.login(user.getEmail(), "invalidPw");
 
         // then
-        Assertions.assertFalse(dto.ok());
-        Assertions.assertNull(dto.user());
-        Assertions.assertNotNull(dto.message());
+        assertFalse(dto.ok());
+        assertNull(dto.user());
+        assertNotNull(dto.message());
     }
 }
