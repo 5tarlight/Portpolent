@@ -3,13 +3,14 @@ package io.yeahx4.portpolent.user;
 import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
@@ -27,7 +28,7 @@ public class UserRepositoryTest {
         User result = userRepository.save(user);
 
         // then
-        Assertions.assertTrue(UserTestUtil.isSameIncludingPassword(user, result));
+        assertTrue(UserTestUtil.isSameIncludingPassword(user, result));
     }
 
     @Test
@@ -41,9 +42,9 @@ public class UserRepositoryTest {
         Optional<User> result = userRepository.findByHandle(user.getHandle());
 
         // then
-        Assertions.assertTrue(result.isPresent());
+        assertTrue(result.isPresent());
         User resultUser = result.get();
-        Assertions.assertTrue(UserTestUtil.isSameIncludingPassword(user, resultUser));
+        assertTrue(UserTestUtil.isSameIncludingPassword(user, resultUser));
     }
 
     @Test
@@ -57,8 +58,8 @@ public class UserRepositoryTest {
         Optional<User> result = userRepository.findByEmail(user.getEmail());
 
         // then
-        Assertions.assertTrue(result.isPresent());
+        assertTrue(result.isPresent());
         User resultUser = result.get();
-        Assertions.assertTrue(UserTestUtil.isSameIncludingPassword(user, resultUser));
+        assertTrue(UserTestUtil.isSameIncludingPassword(user, resultUser));
     }
 }
