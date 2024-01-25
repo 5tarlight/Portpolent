@@ -116,7 +116,7 @@ public class UserController {
 
         if (!result.ok()) {
             this.logger.warn(result.message());
-            return new ResponseEntity<>(RestResponse.fail("Invalid email or password."), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(RestResponse.fail("Invalid email or password"), HttpStatus.BAD_REQUEST);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute(SessionName.LOGIN_USER_ID, result.user().getId());
@@ -126,32 +126,31 @@ public class UserController {
         }
     }
 
-    // Obsoleted!
-    @GetMapping("/whoami_old")
-    public ResponseEntity<RestResponse<User>> _whoAmI(HttpServletRequest req) {
-        HttpSession session = req.getSession(false);
-
-        if (session == null) {
-            return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
-        } else {
-            Integer userId = (Integer) session.getAttribute(SessionName.LOGIN_USER_ID);
-
-            if (userId == null)
-                return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
-            else {
-                Optional<User> user = this.userService.getUserById(userId);
-                return user
-                    .map(
-                        value -> new ResponseEntity<>(RestResponse.success(value), HttpStatus.OK)
-                    ).orElseGet(
-                        () -> new ResponseEntity<>(
-                            RestResponse.fail("Invalid user identification"),
-                            HttpStatus.BAD_REQUEST
-                        )
-                    );
-            }
-        }
-    }
+//    @GetMapping("/whoami_old")
+//    public ResponseEntity<RestResponse<User>> _whoAmI(HttpServletRequest req) {
+//        HttpSession session = req.getSession(false);
+//
+//        if (session == null) {
+//            return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
+//        } else {
+//            Integer userId = (Integer) session.getAttribute(SessionName.LOGIN_USER_ID);
+//
+//            if (userId == null)
+//                return new ResponseEntity<>(RestResponse.fail("Login first"), HttpStatus.OK);
+//            else {
+//                Optional<User> user = this.userService.getUserById(userId);
+//                return user
+//                    .map(
+//                        value -> new ResponseEntity<>(RestResponse.success(value), HttpStatus.OK)
+//                    ).orElseGet(
+//                        () -> new ResponseEntity<>(
+//                            RestResponse.fail("Invalid user identification"),
+//                            HttpStatus.BAD_REQUEST
+//                        )
+//                    );
+//            }
+//        }
+//    }
 
     @GetMapping("/whoami")
     public ResponseEntity<RestResponse<User>> whoAmI(

@@ -4,6 +4,7 @@ import io.yeahx4.portpolent.dto.user.SignInResultDto;
 import io.yeahx4.portpolent.entity.User;
 import io.yeahx4.portpolent.entity.consts.AccountType;
 import io.yeahx4.portpolent.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
@@ -38,7 +40,13 @@ public class UserService {
 
     public User saveUser(String email, String handle, String username, String password, AccountType type) {
         String encrypted = this.encryptPassword(password);
-        User user = new User(-1, email, handle, username, encrypted, type);
+        User user = User.builder()
+                .email(email)
+                .handle(handle)
+                .username(username)
+                .password(encrypted)
+                .accountType(type)
+                .build();
         return this.userRepository.save(user);
     }
 
