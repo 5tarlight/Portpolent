@@ -20,8 +20,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <Header />
-        {/* <div className="mb-16"></div> */}
-        {children}
+        <main className="w-full min-h-screen overflow-auto pt-16">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

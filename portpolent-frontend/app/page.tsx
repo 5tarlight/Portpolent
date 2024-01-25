@@ -104,6 +104,7 @@ export default function Home() {
               <TempBox height="h-64" />
             </div>
           </DoubleContent>
+          <Gap height="h-[10rem]" />
         </Content>
       </div>
     </>
