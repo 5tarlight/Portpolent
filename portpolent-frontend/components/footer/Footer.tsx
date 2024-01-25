@@ -14,7 +14,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-blue-950 text-white min-h-[40rem] mt-[10rem] p-20 flex justify-center">
+    <footer className="w-full bg-blue-950 text-white min-h-[40rem] p-20 flex justify-center">
       <Content className="flex flex-col justify-between">
         <div className="flex justify-between">
           <div>
