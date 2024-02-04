@@ -154,8 +154,12 @@ public class UserController {
 
     @GetMapping("/whoami")
     public ResponseEntity<RestResponse<User>> whoAmI(
-            @SessionAttribute(name = SessionName.LOGIN_USER_ID, required = true) Integer userId
+            @SessionAttribute(name = SessionName.LOGIN_USER_ID, required = false) Integer userId
     ) {
+        if (userId == null) {
+            return new ResponseEntity<>(RestResponse.error("Login First"), HttpStatus.FORBIDDEN);
+        }
+
         Optional<User> user = this.userService.getUserById(userId);
 
         if (user.isEmpty())
