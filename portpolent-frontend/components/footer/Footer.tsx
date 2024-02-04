@@ -16,10 +16,10 @@ const Footer = () => {
   return (
     <footer className="w-full bg-blue-950 text-white min-h-[40rem] p-20 flex justify-center">
       <Content className="flex flex-col justify-between">
-        <div className="flex justify-between">
+        <div className="flex md:justify-between md:flex-row flex-col gap-8">
           <div>
             <LangSelect />
-            <div className="flex mt-12 text-[2rem] gap-6">
+            <div className="flex mt-12 text-[2rem] md:gap-6 gap-8">
               <a href="https://github.com/5tarlight" target="_blank">
                 <FaGithub />
               </a>
@@ -29,7 +29,7 @@ const Footer = () => {
               <FaTwitter />
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <FooterGroup>
               <FooterHeadline>Portpolent</FooterHeadline>
               <Gap height="h-4" />
@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <div className="bg-white h-[1px] w-full mb-8" />
+          <div className="bg-white h-[1px] w-full mb-8 mt-8" />
           <div className="flex justify-between">
             <div>&copy; 2023-{new Date().getFullYear()} Portpolent.</div>
             <div>Do not share your private information</div>
