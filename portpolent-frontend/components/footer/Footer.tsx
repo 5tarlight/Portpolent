@@ -29,7 +29,7 @@ const Footer = () => {
               <FaTwitter />
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <FooterGroup>
               <FooterHeadline>Portpolent</FooterHeadline>
               <Gap height="h-4" />
@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <div className="bg-white h-[1px] w-full mb-8" />
+          <div className="bg-white h-[1px] w-full mb-8 mt-8" />
           <div className="flex justify-between">
             <div>&copy; 2023-{new Date().getFullYear()} Portpolent.</div>
             <div>Do not share your private information</div>
