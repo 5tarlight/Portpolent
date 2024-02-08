@@ -47,9 +47,7 @@ export default function Home() {
 
       <div className="mt-32 flex w-full justify-center">
         <Content className="flex flex-col justify-center">
-          <h1 className="self-center text-2xl font-bold">
-            Portpolent와 함께라면
-          </h1>
+          <h1 className="self-center text-2xl font-bold">With Portpolent</h1>
           <div className="h-16" />
           <DoubleContent>
             <div>
@@ -71,9 +69,6 @@ export default function Home() {
           <Gap height="h-32" />
           <DoubleContent reversed>
             <div>
-              <TempBox height="h-64" />
-            </div>
-            <div>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -84,6 +79,9 @@ export default function Home() {
               containing Lorem Ipsum passages, and more recently with desktop
               publishing software like Aldus PageMaker including versions of
               Lorem Ipsum.
+            </div>
+            <div>
+              <TempBox height="h-64" />
             </div>
           </DoubleContent>
           <Gap height="h-32" />
