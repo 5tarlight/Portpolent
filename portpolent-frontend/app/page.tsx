@@ -47,9 +47,7 @@ export default function Home() {
 
       <div className="mt-32 flex w-full justify-center">
         <Content className="flex flex-col justify-center">
-          <h1 className="self-center text-2xl font-bold">
-            Portpolent와 함께라면
-          </h1>
+          <h1 className="self-center text-2xl font-bold">With Portpolent</h1>
           <div className="h-16" />
           <DoubleContent>
             <div>

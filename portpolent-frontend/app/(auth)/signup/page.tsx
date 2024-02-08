@@ -39,7 +39,7 @@ const SignUp = () => {
       <Gap height="h-8" />
       <div className="flex justify-between">
         <Link className="cursor-pointer hover:underline" href="/signin">
-          로그인
+          Sign in
         </Link>
         <Link className="cursor-pointer hover:underline" href="/pw"></Link>
       </div>

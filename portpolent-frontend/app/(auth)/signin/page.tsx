@@ -25,10 +25,10 @@ const SignIn = () => {
       <Gap height="h-8" />
       <div className="flex justify-between">
         <Link className="cursor-pointer hover:underline" href="/signup">
-          회원가입
+          Sign up
         </Link>
         <Link className="cursor-pointer hover:underline" href="/pw">
-          비밀번호 찾기
+          Do you have trouble?
         </Link>
       </div>
     </>
