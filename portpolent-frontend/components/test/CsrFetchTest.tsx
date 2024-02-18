@@ -3,19 +3,32 @@
 import { useState } from "react";
 import TestItem from "./TestItem";
 import TestTitle from "./TestTitle";
-import { BackendResponse, httpGet, httpPost } from "@/lib/backend";
+import { BackendResponse, backend, httpGet, httpPost } from "@/lib/backend";
 
-const FetchTest = () => {
+const CsrFetchTest = () => {
   const [getRes, setGetRes] = useState<string>();
   const [postRes, setPostRes] = useState<string>();
 
   const getData = async () => {
-    const res = await httpGet<BackendResponse<string>>("/api/hello/");
+    const res = await httpGet<BackendResponse<string>>(
+      backend("/hello/", false),
+      {
+        cache: "no-store",
+      }
+    );
+
     setGetRes(JSON.stringify(res));
   };
 
   const postData = async () => {
-    const res = await httpPost<BackendResponse<string>>("/api/hello");
+    const res = await httpPost<BackendResponse<string>>(
+      backend("/hello", false),
+      {},
+      {
+        cache: "no-store",
+      }
+    );
+
     setPostRes(JSON.stringify(res));
   };
 
@@ -36,4 +49,4 @@ const FetchTest = () => {
   );
 };
 
-export default FetchTest;
+export default CsrFetchTest;

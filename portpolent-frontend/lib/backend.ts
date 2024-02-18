@@ -1,6 +1,7 @@
 import { revalidateTag } from "next/cache";
 
-export const backend = (subUrl: string) => `/api/${subUrl}`;
+export const backend = (subUrl: string, server: boolean = true) =>
+  server ? `http://localhost:8080${subUrl}` : `/api${subUrl}`;
 
 export interface BackendResponse<T> {
   status: "Success" | "Fail" | "Error";
@@ -58,7 +59,12 @@ export const httpPost = async <T>(
   data: object | undefined = {},
   opt: FetchOption | undefined = {}
 ) => {
-  const res = await fetch(url, {
+  const uri = (() => {
+    if (opt.param) return `${url}?${encodeQuery(opt.param)}`;
+    else return url;
+  })();
+
+  const res = await fetch(uri, {
     headers: {
       "Content-Type": "application/json",
     },
