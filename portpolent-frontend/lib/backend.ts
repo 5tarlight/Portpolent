@@ -62,6 +62,7 @@ export const httpPost = async <T>(
     headers: {
       "Content-Type": "application/json",
     },
+    method: "POST",
     body: JSON.stringify(data),
     cache: opt.cache,
     next: {
