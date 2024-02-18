@@ -1,14 +1,9 @@
-import TestItem from "@/components/test/TestItem";
-import TestTitle from "@/components/test/TestTitle";
+import FetchTest from "@/components/test/FetchTest";
 
 const TestPage = () => {
   return (
     <>
-      <TestItem>
-        <TestTitle>Test Fetch</TestTitle>
-        <button>Fire</button>
-        <div>Hello World</div>
-      </TestItem>
+      <FetchTest />
     </>
   );
 };
