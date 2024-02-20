@@ -20,6 +20,9 @@ export const encodeQuery = (obj: uriParam | undefined = {}) => {
   return query.join("&");
 };
 
+export const encodeUrl = (baseUrl: string, params: uriParam) =>
+  `${baseUrl}?${encodeQuery(params)}`;
+
 /**
  * https://nextjs.org/docs/app/api-reference/functions/fetch
  */

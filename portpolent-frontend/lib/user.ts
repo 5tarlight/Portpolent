@@ -10,10 +10,14 @@ export interface User {
   updatedAt: Date;
 }
 
-export const whoAmI = async () => {
-  const res = await httpGet<BackendResponse<User>>(backend("user/whoami"), {
-    revalidate: 300,
-    tags: [ApiCacheTag.login],
-  });
-  console.log(res);
+export const whoAmI = async (server: boolean = true) => {
+  const res = await httpGet<BackendResponse<User>>(
+    backend("/user/whoami", server),
+    {
+      revalidate: 300,
+      tags: [ApiCacheTag.auth, ApiCacheTag.login],
+    }
+  );
+
+  return res;
 };
