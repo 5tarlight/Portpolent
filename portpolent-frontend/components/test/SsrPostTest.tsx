@@ -1,4 +1,4 @@
-import { BackendResponse, backend, httpGet, httpPost } from "@/lib/backend";
+import { BackendResponse, backend, httpPost } from "@/lib/backend";
 import TestItem from "./TestItem";
 import TestTitle from "./TestTitle";
 
