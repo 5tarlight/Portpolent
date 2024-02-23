@@ -1,18 +1,56 @@
+"use client";
+
+import AuthInput from "@/components/auth/AuthInput";
 import Gap from "@/components/util/Gap";
+import { validateHandle, validatePassword } from "@/lib/validate/authRegEx";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignIn = () => {
+  const [msg, setMsg] = useState("");
+  const [handle, setHandle] = useState("");
+  const [handleErr, setHandleErr] = useState(false);
+  const [pw, setPw] = useState("");
+  const [pwErr, setPwErr] = useState(false);
+
+  const handleSignIn = () => {
+    const testPassword = !!pw;
+    const testHandle = !!handle;
+    setHandleErr(false);
+    setPwErr(false);
+    setMsg("");
+
+    if (!testPassword) {
+      setPwErr(true);
+      setMsg("Password is required");
+    }
+    if (!testHandle) {
+      setHandleErr(true);
+      setMsg("Handle is required");
+    }
+
+    if (!msg) {
+      // TODO : Sign In
+    }
+  };
+
   return (
     <>
-      <form className="w-full h-full">
+      <form className="w-full h-full" action={handleSignIn}>
         <h1 className="text-[2rem] font-bold">Sign In</h1>
-        <input
-          className="w-full p-2 mt-8 outline-none rounded-md"
+        <AuthInput
+          onChange={setHandle}
+          value={handle}
           placeholder="Handle"
+          className="mt-8"
+          err={handleErr}
         />
-        <input
-          className="w-full p-2 mt-2 outline-none rounded-md"
+        <AuthInput
+          onChange={setPw}
+          value={pw}
           placeholder="Password"
+          className="mt-2"
+          err={pwErr}
           type="password"
         />
         <button
@@ -22,7 +60,15 @@ const SignIn = () => {
           Sign in
         </button>
       </form>
-      <Gap height="h-8" />
+
+      {msg ? (
+        <div className="mt-4 mb-8 w-full text-left text-red-500 underline">
+          {msg}
+        </div>
+      ) : (
+        <Gap height="h-8" />
+      )}
+
       <div className="flex justify-between">
         <Link className="cursor-pointer hover:underline" href="/signup">
           Sign up

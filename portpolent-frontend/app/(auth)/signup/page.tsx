@@ -37,25 +37,25 @@ const SignUp = () => {
     setPwConErr(false);
     setMsg("");
 
-    if (!testEmail) {
-      setEmailErr(true);
-      setMsg("Email is not valid");
-    }
-    if (!testHandle) {
-      setHandleErr(true);
-      setMsg("Handle is not valid");
-    }
-    if (!testUsername) {
-      setUsernameErr(true);
-      setMsg("Username is not valid");
+    if (!matchPassword) {
+      setPwConErr(true);
+      setMsg("Password does not equal");
     }
     if (!testPassword) {
       setPwErr(true);
       setMsg("Password is not valid or too simple");
     }
-    if (!matchPassword) {
-      setPwConErr(true);
-      setMsg("Password does not equal");
+    if (!testUsername) {
+      setUsernameErr(true);
+      setMsg("Username is not valid");
+    }
+    if (!testHandle) {
+      setHandleErr(true);
+      setMsg("Handle is not valid");
+    }
+    if (!testEmail) {
+      setEmailErr(true);
+      setMsg("Email is not valid");
     }
 
     if (!msg) {
@@ -112,6 +112,7 @@ const SignUp = () => {
           Sign up
         </button>
       </form>
+
       {msg ? (
         <div className="mt-4 mb-8 w-full text-left text-red-500 underline">
           {msg}
