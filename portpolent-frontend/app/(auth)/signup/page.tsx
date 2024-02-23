@@ -2,6 +2,12 @@
 
 import AuthInput from "@/components/auth/AuthInput";
 import Gap from "@/components/util/Gap";
+import {
+  validateEmail,
+  validateHandle,
+  validatePassword,
+  validateUsername,
+} from "@/lib/validate/authRegEx";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -19,8 +25,42 @@ const SignUp = () => {
   const [pwConErr, setPwConErr] = useState(false);
 
   const handleSignUp = async () => {
-    setEmailErr(true);
-    // TODO
+    const testEmail = validateEmail(email);
+    const testHandle = validateHandle(handle);
+    const testUsername = validateUsername(username);
+    const testPassword = validatePassword(pw);
+    const matchPassword = pw === pwCon;
+    setEmailErr(false);
+    setHandleErr(false);
+    setUsernameErr(false);
+    setPwErr(false);
+    setPwConErr(false);
+    setMsg("");
+
+    if (!testEmail) {
+      setEmailErr(true);
+      setMsg("Email is not valid");
+    }
+    if (!testHandle) {
+      setHandleErr(true);
+      setMsg("Handle is not valid");
+    }
+    if (!testUsername) {
+      setUsernameErr(true);
+      setMsg("Username is not valid");
+    }
+    if (!testPassword) {
+      setPwErr(true);
+      setMsg("Password is not valid or too simple");
+    }
+    if (!matchPassword) {
+      setPwConErr(true);
+      setMsg("Password does not equal");
+    }
+
+    if (!msg) {
+      // TODO : Sign up
+    }
   };
 
   return (
