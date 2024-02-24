@@ -2,19 +2,23 @@
 
 import AuthInput from "@/components/auth/AuthInput";
 import Gap from "@/components/util/Gap";
+import { signIn } from "@/lib/user";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const SignIn = () => {
   const [msg, setMsg] = useState("");
-  const [handle, setHandle] = useState("");
+  const [email, setEmail] = useState("");
   const [handleErr, setHandleErr] = useState(false);
   const [pw, setPw] = useState("");
   const [pwErr, setPwErr] = useState(false);
+  const searchParams = useSearchParams();
+  const { push } = useRouter();
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     const testPassword = !!pw;
-    const testHandle = !!handle;
+    const testHandle = !!email;
     setHandleErr(false);
     setPwErr(false);
     setMsg("");
@@ -29,7 +33,14 @@ const SignIn = () => {
     }
 
     if (!msg) {
-      // TODO : Sign In
+      const res = await signIn(false, { email, password: pw });
+
+      if (res.ok) {
+        const t = searchParams.get("t") || "/";
+        push(t);
+      } else {
+        setMsg(res.data.message || "Failed to sign in");
+      }
     }
   };
 
@@ -38,10 +49,11 @@ const SignIn = () => {
       <form className="w-full h-full" action={handleSignIn}>
         <h1 className="text-[2rem] font-bold">Sign In</h1>
         <AuthInput
-          onChange={setHandle}
-          value={handle}
-          placeholder="Handle"
+          onChange={setEmail}
+          value={email}
+          placeholder="Email"
           className="mt-8"
+          type="email"
           err={handleErr}
         />
         <AuthInput

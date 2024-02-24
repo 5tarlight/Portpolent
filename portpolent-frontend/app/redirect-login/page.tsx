@@ -1,5 +1,6 @@
 "use client";
 
+import { encodeUrl } from "@/lib/backend";
 import { whoAmI } from "@/lib/user";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -11,13 +12,13 @@ const RedirectLogin = () => {
   useEffect(() => {
     (async () => {
       const res = await whoAmI(false);
+      const t = searchParams.get("t") || "/";
 
       if (res.ok) {
-        const t = searchParams.get("t") || "/";
         push(t);
       } else {
-        const t = "/signin";
-        push(t);
+        const path = encodeUrl("/signin", { t });
+        push(path);
       }
     })();
   }, []);

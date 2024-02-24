@@ -41,3 +41,21 @@ export const signUp = async (
 
   return res;
 };
+
+export const signIn = async (
+  server: boolean,
+  body: {
+    email: string;
+    password: string;
+  }
+) => {
+  const res = await httpPost<BackendResponse<User>>(
+    backend("/user/login", server),
+    body,
+    {
+      cache: "no-store",
+    }
+  );
+
+  return res;
+};
