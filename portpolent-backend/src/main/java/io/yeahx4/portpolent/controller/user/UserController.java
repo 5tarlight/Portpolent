@@ -158,14 +158,21 @@ public class UserController {
             @SessionAttribute(name = SessionName.LOGIN_USER_ID, required = false) Integer userId
     ) {
         if (userId == null) {
+            logger.info("Self fetch while not logged in");
             return new ResponseEntity<>(RestResponse.error("Login First"), HttpStatus.FORBIDDEN);
         }
 
         Optional<User> user = this.userService.getUserById(userId);
 
-        if (user.isEmpty())
+        if (user.isEmpty()) {
+            logger.info("Self fetch with invalid user id " + userId);
             return new ResponseEntity<>(RestResponse.error("Invalid user id"), HttpStatus.BAD_REQUEST);
-        else
+        } else {
+            logger.info(
+                    "Self fetch by user " + user.get().getUsername() + "(" + user.get().getHandle() +
+                    ", " + user.get().getId() + ")"
+            );
             return new ResponseEntity<>(RestResponse.success(user.get()), HttpStatus.OK);
+        }
     }
 }
