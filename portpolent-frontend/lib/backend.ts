@@ -1,6 +1,7 @@
 import { revalidateTag } from "next/cache";
 
-export const backend = (subUrl: string) => `/api/${subUrl}`;
+export const backend = (subUrl: string, server: boolean = true) =>
+  server ? `http://localhost:8080${subUrl}` : `/api${subUrl}`;
 
 export interface BackendResponse<T> {
   status: "Success" | "Fail" | "Error";
@@ -19,10 +20,13 @@ export const encodeQuery = (obj: uriParam | undefined = {}) => {
   return query.join("&");
 };
 
+export const encodeUrl = (baseUrl: string, params: uriParam) =>
+  `${baseUrl}?${encodeQuery(params)}`;
+
 /**
  * https://nextjs.org/docs/app/api-reference/functions/fetch
  */
-export interface GetOption {
+export interface FetchOption {
   param?: uriParam;
   cache?: "no-store" | "force-cache";
   revalidate?: false | 0 | number;
@@ -30,8 +34,8 @@ export interface GetOption {
 }
 
 export const httpGet = async <T>(
-  url: string = "",
-  opt: GetOption | undefined = {}
+  url: string,
+  opt: FetchOption | undefined = {}
 ) => {
   const uri = (() => {
     if (opt.param) return `${url}?${encodeQuery(opt.param)}`;
@@ -39,6 +43,36 @@ export const httpGet = async <T>(
   })();
 
   const res = await fetch(uri, {
+    cache: opt.cache,
+    next: {
+      revalidate: opt.revalidate,
+      tags: opt.tags,
+    },
+  });
+
+  return {
+    status: res.status,
+    ok: res.ok,
+    data: (await res.json()) as T,
+  };
+};
+
+export const httpPost = async <T>(
+  url: string = "",
+  data: object | undefined = {},
+  opt: FetchOption | undefined = {}
+) => {
+  const uri = (() => {
+    if (opt.param) return `${url}?${encodeQuery(opt.param)}`;
+    else return url;
+  })();
+
+  const res = await fetch(uri, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(data),
     cache: opt.cache,
     next: {
       revalidate: opt.revalidate,
