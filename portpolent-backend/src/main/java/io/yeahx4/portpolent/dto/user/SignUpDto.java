@@ -21,9 +21,11 @@ public record SignUpDto(
         @NotBlank(message = "Username Required")
         String username,
 
-        // Least 8 characters, one lower letter, one upper letter, one special letter, one number
+        // At least 8 characters, up to 100 characters,
+        // one lower letter, one upper letter, one special letter, one number
+        // must be included
         @Pattern(
-                regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+                regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,100}$",
                 message = "Password pattern mismatched"
         )
         @NotBlank(message = "Password Required")

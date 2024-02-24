@@ -1,5 +1,6 @@
 package io.yeahx4.portpolent.controller.user;
 
+import io.yeahx4.portpolent.dto.user.SignInDto;
 import io.yeahx4.portpolent.dto.user.SignInResultDto;
 import io.yeahx4.portpolent.dto.user.SignUpDto;
 import io.yeahx4.portpolent.entity.User;
@@ -42,13 +43,13 @@ public class UserController {
 
         if (!availableToCreate) {
             logger.info(
-                    "Sign up request failed due to duplicated email or password ("
+                    "Sign up request failed due to duplicated email or handle ("
                     + dto.email() + ", "
                     + dto.handle() + ")"
             );
 
             return new ResponseEntity<>(
-                    RestResponse.fail("Duplicated email or handle."),
+                    RestResponse.fail("Duplicated email or handle"),
                     HttpStatus.BAD_REQUEST
             );
         }
@@ -110,7 +111,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<RestResponse<User>> login(
             HttpServletRequest request,
-            @RequestBody SignUpDto body
+            @RequestBody SignInDto body
     ) {
         SignInResultDto result = this.userService.login(body.email(), body.password());
 

@@ -1,4 +1,4 @@
-export type Classname = string | { [key: string]: boolean };
+export type Classname = string | { [key: string]: boolean } | undefined;
 
 // const test: Classname[] = [
 //   'test',
@@ -7,13 +7,14 @@ export type Classname = string | { [key: string]: boolean };
 
 export const cn = (names: Classname[]) => {
   return names
+    .filter((it) => it)
     .map((n) => {
       if (typeof n == "string") {
         return n;
       } else {
-        return Object.keys(n)
+        return Object.keys(n!!)
           .map((o) => {
-            if (n[o]) return o;
+            if (n!![o]) return o;
           })
           .filter((it) => it)
           .join(" ");
