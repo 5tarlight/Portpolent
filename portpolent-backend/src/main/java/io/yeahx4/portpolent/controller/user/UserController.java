@@ -42,13 +42,13 @@ public class UserController {
 
         if (!availableToCreate) {
             logger.info(
-                    "Sign up request failed due to duplicated email or password ("
+                    "Sign up request failed due to duplicated email or handle ("
                     + dto.email() + ", "
                     + dto.handle() + ")"
             );
 
             return new ResponseEntity<>(
-                    RestResponse.fail("Duplicated email or handle."),
+                    RestResponse.fail("Duplicated email or handle"),
                     HttpStatus.BAD_REQUEST
             );
         }

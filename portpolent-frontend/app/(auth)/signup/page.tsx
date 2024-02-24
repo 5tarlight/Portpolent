@@ -2,6 +2,7 @@
 
 import AuthInput from "@/components/auth/AuthInput";
 import Gap from "@/components/util/Gap";
+import { signUp } from "@/lib/user";
 import {
   validateEmail,
   validateHandle,
@@ -9,6 +10,8 @@ import {
   validateUsername,
 } from "@/lib/validate/authRegEx";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 const SignUp = () => {
@@ -23,6 +26,7 @@ const SignUp = () => {
   const [pwErr, setPwErr] = useState(false);
   const [pwCon, setPwCon] = useState("");
   const [pwConErr, setPwConErr] = useState(false);
+  const { push } = useRouter();
 
   const handleSignUp = async () => {
     const testEmail = validateEmail(email);
@@ -59,7 +63,18 @@ const SignUp = () => {
     }
 
     if (!msg) {
-      // TODO : Sign up
+      const res = await signUp(false, {
+        email,
+        username,
+        handle,
+        password: pw,
+      });
+
+      if (res.ok) {
+        push("/signin");
+      } else {
+        setMsg(res.data.message || "Failed to sign up");
+      }
     }
   };
 

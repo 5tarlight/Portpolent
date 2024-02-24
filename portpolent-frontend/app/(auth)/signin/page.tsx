@@ -2,7 +2,6 @@
 
 import AuthInput from "@/components/auth/AuthInput";
 import Gap from "@/components/util/Gap";
-import { validateHandle, validatePassword } from "@/lib/validate/authRegEx";
 import Link from "next/link";
 import { useState } from "react";
 
