@@ -2,6 +2,7 @@ package io.yeahx4.portpolent.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,15 +33,24 @@ public class SecurityConfig {
                 "http://localhost",
                 "http://localhost:3000"
         );
+        List<HttpMethod> allowedMethods = Arrays.asList(
+                HttpMethod.GET,
+                HttpMethod.POST,
+                HttpMethod.DELETE,
+                HttpMethod.PUT,
+                HttpMethod.PATCH,
+                HttpMethod.HEAD,
+                HttpMethod.TRACE
+        );
 
         config.setAllowCredentials(true);
 
-        for (String origin : origins) {
+        for (String origin : origins)
             config.addAllowedOrigin(origin);
-        }
+        for (HttpMethod method : allowedMethods)
+            config.addAllowedMethod(method);
 
         config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
 
         source.registerCorsConfiguration("/**", config);
 

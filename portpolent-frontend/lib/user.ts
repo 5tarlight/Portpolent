@@ -10,7 +10,7 @@ export interface User {
   updatedAt: Date;
 }
 
-export const whoAmI = async (server: boolean = true) => {
+export const whoAmI = async (server: boolean) => {
   const res = await httpGet<BackendResponse<User>>(
     backend("/user/whoami", server),
     {
@@ -54,6 +54,19 @@ export const signIn = async (
     body,
     {
       cache: "no-store",
+    }
+  );
+
+  return res;
+};
+
+export const getUserByHandle = async (handle: string, server: boolean) => {
+  const res = await httpGet<BackendResponse<User>>(
+    backend("/user/handle", server),
+    {
+      revalidate: 300,
+      param: { handle },
+      tags: [ApiCacheTag.profile],
     }
   );
 
