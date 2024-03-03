@@ -1,24 +1,32 @@
 "use client";
 
 import ProfileContainer from "@/components/profile/ProfileContainer";
+import { User, getUserByHandle } from "@/lib/user";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const ProfilePage = () => {
   const searchParams = useSearchParams();
   const { push } = useRouter();
   const handle = searchParams.get("handle");
-  if (!handle) {
-    push("/not-found");
-  }
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    if (!handle) {
+      push("/not-found");
+    }
+
+    (async () => {
+      const res = await getUserByHandle(handle || "", false);
+
+      if (!res.ok) push("/not-found");
+
+      setUser(res.data.data);
+    })();
+  }, []);
 
   return (
-    <>
-      {handle ? (
-        <ProfileContainer handle={handle} />
-      ) : (
-        <div>Redirecting...</div>
-      )}
-    </>
+    <>{user ? <ProfileContainer user={user} /> : <div>Redirecting...</div>}</>
   );
 };
 

@@ -1,22 +1,15 @@
-"use server";
+"use client";
 
-import { getUserByHandle } from "@/lib/user";
+import { User } from "@/lib/user";
 import Gap from "../util/Gap";
 import Content from "../util/Content";
 import ProfileImage from "./ProfileImage";
-import { redirect } from "next/navigation";
 
 interface Props {
-  handle: string;
+  user: User;
 }
 
-const ProfileContainer = async ({ handle }: Props) => {
-  const res = await getUserByHandle(handle, true);
-
-  if (!res.ok) redirect("/not-found");
-
-  const user = res.data.data;
-
+const ProfileContainer = ({ user }: Props) => {
   return (
     <>
       <Gap height="h-16" />
